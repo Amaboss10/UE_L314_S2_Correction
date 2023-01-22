@@ -1,7 +1,8 @@
+import { ObjectID } from 'mongodb';
+import { Users } from './entities/user.entity';
 import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('api')
 export class UsersController {
@@ -18,17 +19,17 @@ export class UsersController {
   }
 
   @Get('user/:id')
-  findOne(@Param('id') id: number) {
-    return this.usersService.findOne(+id);
+  async findOne(@Param('id') id: string) : Promise<Users>  {
+        return await this.usersService.findOne(new ObjectID(id));
   }
 
-  @Put('updateuser')
-  update(@Body('id') id: number, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  @Put('updateuser/:id')
+  async update(@Param('id') id: string, @Body() user: Users) : Promise<Users> {
+    return this.usersService.update(new ObjectID(id), user);
   }
 
-  @Delete('deleteuser')
-  remove(@Body('id') id: number) {
-    return this.usersService.remove(+id);
+  @Delete('deleteuser/:id')
+  async remove(@Param('id') id: string): Promise<Users> {
+    return this.usersService.remove(new ObjectID(id));
   }
 }

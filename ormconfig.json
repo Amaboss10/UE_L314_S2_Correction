@@ -1,0 +1,13 @@
+{
+    "type": "mongodb",
+    "host": "cluster0.mongodb.net",
+    "username": "admin",
+    "password": "MongoDB",
+    "database": "nestjsPassport",
+    "synchronize": true,
+    "entities": [
+        "src/entities/**/*.ts"
+    ],
+    "useNewUrlParser": true,
+    "useUnifiedTopology": true
+}
